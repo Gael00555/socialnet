@@ -135,14 +135,14 @@ socialnet/
 
 ---
 
-## API REST — Referencia rápida
+## API REST 
 
 Todas las rutas protegidas requieren header:
 ```
 Authorization: Bearer <token>
 ```
 
-### Autenticación (pública)
+### Autenticación 
 
 | Método | Ruta | Descripción |
 |--------|------|-------------|
@@ -171,9 +171,9 @@ Authorization: Bearer <token>
 | GET | `/api/profile/:id` | Perfil público de otro usuario |
 | GET | `/api/users/search?q=texto` | Buscar usuarios |
 
----
 
-### Publicaciones (protegido)
+
+### Publicaciones 
 
 | Método | Ruta | Descripción |
 |--------|------|-------------|
@@ -182,11 +182,9 @@ Authorization: Bearer <token>
 | GET | `/api/posts/user/:userId` | Posts de un usuario |
 | DELETE | `/api/posts/:id` | Eliminar publicación propia |
 
-Query params feed: `?pagina=1&limite=15`
 
----
 
-### Amistades (protegido)
+### Amistades 
 
 | Método | Ruta | Descripción |
 |--------|------|-------------|
@@ -195,47 +193,6 @@ Query params feed: `?pagina=1&limite=15`
 | POST | `/api/friends/reject` | Rechazar solicitud (`{ solicitudId }`) |
 | GET | `/api/friends/list` | Listar amigos aceptados |
 | GET | `/api/friends/requests` | Solicitudes pendientes recibidas |
-
----
-
-## Despliegue en Render
-
-1. Crear un nuevo **Web Service** en [render.com](https://render.com)
-2. Conectar el repositorio de GitHub
-3. Configurar:
-   - **Build Command:** `npm install`
-   - **Start Command:** `npm start`
-4. Agregar una base de datos **PostgreSQL** en Render (plan gratuito disponible)
-5. Copiar la **Internal Database URL** y configurar las variables de entorno:
-
-```
-DB_HOST=<host interno de Render>
-DB_PORT=5432
-DB_NAME=<nombre de la BD>
-DB_USER=<usuario>
-DB_PASS=<contraseña>
-JWT_SECRET=<secreto largo y aleatorio>
-NODE_ENV=production
-BASE_URL=https://<tu-app>.onrender.com
-```
-
-6. En el primer deploy, ejecutar manualmente desde la consola de Render:
-   ```bash
-   node config/initDb.js
-   ```
-
----
-
-## Despliegue en Railway
-
-1. Instalar Railway CLI: `npm install -g @railway/cli`
-2. `railway login`
-3. `railway init` (en la carpeta del proyecto)
-4. Agregar un plugin **PostgreSQL** desde el dashboard
-5. `railway variables set JWT_SECRET=<secreto> NODE_ENV=production`
-6. `railway up`
-
----
 
 ## Seguridad implementada
 
@@ -248,7 +205,7 @@ BASE_URL=https://<tu-app>.onrender.com
 
 ---
 
-## Limitaciones (MVP intencional)
+## Limitaciones 
 
 - Sin chat en tiempo real
 - Sin notificaciones push
@@ -257,14 +214,4 @@ BASE_URL=https://<tu-app>.onrender.com
 - Sin paginación infinita (solo "ver más")
 - Sin verificación de email
 
----
 
-## Próximos pasos sugeridos
-
-Si querés extender el MVP:
-
-1. **Likes en posts** — agregar tabla `likes(post_id, usuario_id)`
-2. **Comentarios** — tabla `comentarios(post_id, usuario_id, contenido)`
-3. **Notificaciones** — tabla `notificaciones` + polling cada 30s
-4. **WebSockets** — chat básico con socket.io
-5. **Rate limiting** — express-rate-limit para evitar spam
