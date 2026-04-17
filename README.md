@@ -1,6 +1,6 @@
 # SocialNet MVP
 
-Red social minimalista inspirada en Facebook 2004.  
+Red social 
 Stack: Node.js + Express · PostgreSQL + Sequelize · Vanilla JS
 
 ---
